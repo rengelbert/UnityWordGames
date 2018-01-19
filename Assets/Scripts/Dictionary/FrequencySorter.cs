@@ -7,25 +7,11 @@ using System.IO;
 
 public class FrequencySorter : MonoBehaviour {
 
-	private string[] fileList = new string[] {"words/1k.txt","words/2k.txt","words/10k.txt","words/20k.txt","words/50k.txt","words/300k.txt", };
-	public char[] badChars = new char[] {' ', '.', '-', '\'', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '˜', '`' };
-
-	HashSet<string> names;
+	private string[] fileList = new string[] {"words/1k.txt","words/2k.txt",
+		"words/10k.txt","words/20k.txt",
+		"words/50k.txt","words/300k.txt", };
 
 	void Start () {
-
-
-		var namesTxt = File.ReadAllText (System.IO.Path.Combine (Application.streamingAssetsPath, "words/allNames.txt"));
-		var namesData = namesTxt.Split ('\n');
-		names = new HashSet<string> ();
-
-		foreach (var line in namesData) {
-			var name = line.TrimEnd ();
-			if (string.IsNullOrEmpty (name))
-				continue;
-			names.Add (name);
-		}
-
 		StartCoroutine ("SortByFrequency");
 	}
 
@@ -41,7 +27,9 @@ public class FrequencySorter : MonoBehaviour {
 			sets.Add (new HashSet<string> ());
 
 			path = fileList [setIndex];
-			string filePath = System.IO.Path.Combine (Application.streamingAssetsPath, path);
+			string filePath = System.IO.Path.Combine (
+					Application.streamingAssetsPath, path);
+			
 			string result = null;
 			if (filePath.Contains ("://")) {
 				WWW www = new WWW (filePath);
@@ -54,12 +42,6 @@ public class FrequencySorter : MonoBehaviour {
 
 			foreach (var w in words) {
 				var word = w.TrimEnd ();
-				if (string.IsNullOrEmpty (word))
-					continue;
-				if (word.IndexOfAny (badChars) != -1)
-					continue;
-				if (names.Contains(word.ToLower())) continue;
-					
 				var previousIndex = setIndex - 1;
 				var unique = true;
 
