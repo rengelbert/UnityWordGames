@@ -72,7 +72,7 @@ public class Crossing : MonoBehaviour, IInputHandler {
 
 	void SelectMysteryWord () {
 		var len = difficultyIndex >= wordLen.Length ? wordLen[wordLen.Length -1] : wordLen [difficultyIndex];
-		var attempts = 0;
+
 		string word = CrossingDictionary.Instance.RandomUniqueWord (len);
 
 		Debug.Log ("MYSTERY: " + word);

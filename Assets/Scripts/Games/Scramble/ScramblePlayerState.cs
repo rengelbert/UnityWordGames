@@ -76,6 +76,7 @@ public class ScramblePlayerState : MonoBehaviour {
 		if (playerState == null)
 			return;
 		PlayerPrefs.SetString (PLAYER_STATE_DATA, JsonUtility.ToJson(playerState) );
+		PlayerPrefs.Save();
 	}
 
 
